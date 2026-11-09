@@ -1,0 +1,199 @@
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+}
+ body {
+     font-family: 'Arial', sans-serif;
+     background: #000;
+     color: #fff;
+     height: 100vh;
+     overflow: hidden;
+     position: relative;
+}
+ .background-container {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     z-index: 1;
+}
+ #aerialCanvas {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     opacity: 0.7;
+}
+ .grid-overlay {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+     background-size: 50px 50px;
+}
+ .scale-marks {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+}
+ .scale-left, .scale-right, .scale-top, .scale-bottom {
+     position: absolute;
+     background: rgba(255, 255, 255, 0.1);
+}
+ .scale-left {
+     left: 0;
+     top: 0;
+     width: 30px;
+     height: 100%;
+     border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+ .scale-right {
+     right: 0;
+     top: 0;
+     width: 30px;
+     height: 100%;
+     border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+ .scale-top {
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 30px;
+     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+ .scale-bottom {
+     bottom: 0;
+     left: 0;
+     width: 100%;
+     height: 30px;
+     border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+ .content {
+     position: relative;
+     z-index: 10;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     height: 100vh;
+     text-align: center;
+}
+ .error-container {
+     position: relative;
+     padding: 40px;
+}
+ .error-code {
+     font-size: clamp(80px, 15vw, 160px);
+     font-weight: 900;
+     letter-spacing: 20px;
+     margin: 0;
+     text-transform: uppercase;
+     position: relative;
+     z-index: 2;
+}
+ .triangle {
+     position: absolute;
+     left: 50%;
+     top: 50%;
+     transform: translate(-50%, -50%);
+     width: 0;
+     height: 0;
+     border-left: 60px solid transparent;
+     border-right: 60px solid transparent;
+     border-top: 100px solid #dc2626;
+     opacity: 0.9;
+     z-index: 1;
+}
+ .horizontal-line {
+     position: absolute;
+     left: -100px;
+     right: -100px;
+     top: 50%;
+     transform: translateY(-50%);
+     height: 2px;
+     background: #dc2626;
+     z-index: 0;
+}
+ .error-message {
+     font-size: clamp(16px, 3vw, 24px);
+     margin-top: 40px;
+     color: rgba(255, 255, 255, 0.8);
+     font-weight: 300;
+     letter-spacing: 2px;
+     text-transform: uppercase;
+}
+ .corner-marker {
+     position: absolute;
+     width: 20px;
+     height: 20px;
+     border: 2px solid rgba(255, 255, 255, 0.4);
+     z-index: 5;
+}
+ .corner-tl {
+     top: 50px;
+     left: 50px;
+     border-right: none;
+     border-bottom: none;
+}
+ .corner-tr {
+     top: 50px;
+     right: 50px;
+     border-left: none;
+     border-bottom: none;
+}
+ .corner-bl {
+     bottom: 50px;
+     left: 50px;
+     border-right: none;
+     border-top: none;
+}
+ .corner-br {
+     bottom: 50px;
+     right: 50px;
+     border-left: none;
+     border-top: none;
+}
+ .crosshair {
+     position: absolute;
+     bottom: 40px;
+     right: 40px;
+     width: 40px;
+     height: 40px;
+     z-index: 20;
+}
+ .crosshair::before, .crosshair::after {
+     content: '';
+     position: absolute;
+     background: rgba(255, 255, 255, 0.6);
+}
+ .crosshair::before {
+     left: 50%;
+     top: 0;
+     width: 2px;
+     height: 100%;
+     transform: translateX(-50%);
+}
+ .crosshair::after {
+     top: 50%;
+     left: 0;
+     width: 100%;
+     height: 2px;
+     transform: translateY(-50%);
+}
+ .crosshair-center {
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     width: 8px;
+     height: 8px;
+     background: #dc2626;
+     border-radius: 50%;
+}

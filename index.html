@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>WARNER OS</title>
+      <link rel="stylesheet" href="css/home.css">
+      <link rel="stylesheet" href="css/mascot.css">
+      <script type="importmap">
+         {
+            "imports": {
+               "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+               "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
+            }
+         }
+      </script>
+      <script src="config.js"></script>
+      <script src="js/home.js" defer></script>
+   </head>
+   <body>
+      <div id="boot-screen">
+         <div class="background" id="bgLayer"></div>
+         <div class="container">
+            <div class="logo-wrapper">
+               <div class="pin"></div>
+               <div class="logo-container">
+                  <div class="logo-container">
+                     <div class="logo-wordmark">
+                        WARNER<span class="os-glitch">OS</span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="loading-section">
+               <div class="loading-bar-container">
+                  <div class="loading-bar"></div>
+               </div>
+               <div class="loading-text">LOADING... PLEASE WAIT</div>
+            </div>
+         </div>
+      </div>
+      <div id="login-screen">
+   <div class="login-profile">
+      <img src="" alt="Profile" class="login-avatar" id="login-avatar">
+      <div class="login-name" id="login-name">Loading...</div>
+      <button class="login-btn" onclick="login()">Sign in</button>
+   </div>
+</div>
+      <div id="desktop">
+         <div class="desktop-icons" id="desktop-icons">
+            <div class="desktop-icon" data-app="mypc" style="left: 20px; top: 20px;">
+               <div class="icon-bg">
+                  <svg class="icon-img icon-mypc" viewBox="0 0 24 24">
+                     <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
+                  </svg>
+                  <div class="icon-label">My PC</div>
+               </div>
+            </div>
+            <div class="desktop-icon" data-app="linkedin" style="left: 20px; top: 570px;">
+               <div class="icon-bg">
+                  <svg class="icon-img icon-linkedin" viewBox="0 0 24 24">
+                     <path d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 17.34V10.5H5.67v6.84h2.67zM7 9.4a1.56 1.56 0 1 0 0-3.12 1.56 1.56 0 0 0 0 3.12zM18.34 17.34v-3.73c0-2-1.06-2.93-2.48-2.93a2.15 2.15 0 0 0-1.95 1.08V10.5h-2.67v6.84h2.67v-3.4c0-.9.17-1.77 1.29-1.77s1.31.86 1.31 1.83v3.34h2.83z"/>
+                  </svg>
+                  <div class="icon-label">LinkedIn</div>
+               </div>
+            </div>
+            <div class="desktop-icon" data-app="email" style="left: 20px; top: 130px;">
+               <div class="icon-bg">
+                  <svg class="icon-img icon-email" viewBox="0 0 24 24">
+                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                  </svg>
+                  <div class="icon-label">Email</div>
+               </div>
+            </div>
+            <div class="desktop-icon" data-app="education" style="left: 20px; top: 740px;">
+               <div class="icon-bg">
+                  <svg class="icon-img icon-education" viewBox="0 0 24 24">
+                     <path d="M12 2L1 7l11 5 9-4.09V17h2V7L12 2z"/>
+                  </svg>
+                  <div class="icon-label">Education</div>
+               </div>
+            </div>
+            <div class="desktop-icon" data-app="resume" style="left: 140px; top: 44px;">
+               <div class="icon-bg">
+                  <svg class="icon-img icon-resume" viewBox="0 0 24 24">
+                     <path d="M9 2h6a2 2 0 0 1 2 2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2-2zm0 2v2h6V4H9zm10 4H5v12h14V8z"/>
+                  </svg>
+                  <div class="icon-label">Resume</div>
+               </div>
+            </div>
+            <div class="desktop-icon" data-app="favorites" style="left: 20px; top: 240px;">
+               <div class="icon-bg">
+                  <svg class="icon-img icon-favorites" viewBox="0 0 24 24">
+                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                  </svg>
+                  <div class="icon-label">Favorites</div>
+               </div>
+            </div>
+             <div class="desktop-icon" data-app="projects" style="left: 20px; top: 240px;">
+               <div class="icon-bg">
+                  <svg class="icon-img icon-projects" viewBox="0 0 24 24">
+                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                  <div class="icon-label">Projects</div>
+               </div>
+            </div>
+            <div class="desktop-icon" data-app="telegram" style="left: 20px; top: 350px;">
+               <div class="icon-bg">
+                  <svg class="icon-img icon-telegram" viewBox="0 0 24 24">
+                     <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
+                  </svg>
+                  <div class="icon-label">Telegram</div>
+               </div>
+            </div>
+            <div class="desktop-icon" data-app="instagram" style="left: 20px; top: 650px;">
+               <div class="icon-bg">
+                  <svg class="icon-img icon-instagram" viewBox="0 0 24 24">
+                     <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10zm-5 3.5A5.5 5.5 0 1 0 17.5 13 5.51 5.51 0 0 0 12 7.5zm0 9A3.5 3.5 0 1 1 15.5 13 3.5 3.5 0 0 1 12 16.5zM17.75 6a1.25 1.25 0 1 0 1.25 1.25A1.25 1.25 0 0 0 17.75 6z"/>
+                  </svg>
+                  <div class="icon-label">Instagram</div>
+               </div>
+            </div>
+            <div class="desktop-icon" data-app="github" style="left: 20px; top: 460px;">
+               <div class="icon-bg">
+                  <svg class="icon-img icon-github" viewBox="0 0 24 24">
+                     <path d="M12 2
+                        C6.477 2 2 6.484 2 12.017
+                        C2 16.438 4.865 20.194 8.839 21.52
+                        C9.339 21.612 9.521 21.303 9.521 21.037
+                        C9.521 20.8 9.512 20.169 9.508 19.203
+                        C6.726 19.808 6.139 17.86 6.139 17.86
+                        C5.685 16.702 5.029 16.394 5.029 16.394
+                        C4.121 15.774 5.098 15.786 5.098 15.786
+                        C6.101 15.857 6.629 16.819 6.629 16.819
+                        C7.521 18.349 8.97 17.907 9.539 17.651
+                        C9.631 17.004 9.889 16.563 10.175 16.313
+                        C7.955 16.06 5.62 15.2 5.62 11.36
+                        C5.62 10.267 6.01 9.372 6.649 8.672
+                        C6.546 8.419 6.203 7.4 6.749 6.022
+                        C6.749 6.022 7.589 5.752 9.499 7.048
+                        C10.299 6.826 11.155 6.715 12.008 6.711
+                        C12.861 6.715 13.717 6.826 14.517 7.048
+                        C16.427 5.752 17.267 6.022 17.267 6.022
+                        C17.813 7.4 17.47 8.419 17.367 8.672
+                        C18.006 9.372 18.396 10.267 18.396 11.36
+                        C18.396 15.21 16.056 16.056 13.828 16.305
+                        C14.187 16.614 14.507 17.225 14.507 18.165
+                        C14.507 19.503 14.495 20.584 14.495 21.037
+                        C14.495 21.303 14.677 21.615 15.183 21.519
+                        C19.135 20.189 22 16.438 22 12.017
+                        C22 6.484 17.523 2 12 2 Z"/>
+                  </svg>
+                  <div class="icon-label">Github</div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div id="taskbar">
+         <div class="start-btn" onclick="toggleStartMenu()">
+            <svg class="start-icon" viewBox="0 0 24 24">
+               <rect width="10" height="10" fill="currentColor"/>
+               <rect x="14" width="10" height="10" fill="currentColor"/>
+               <rect y="14" width="10" height="10" fill="currentColor"/>
+               <rect x="14" y="14" width="10" height="10" fill="currentColor"/>
+            </svg>
+         </div>
+         <div class="taskbar-separator"></div>
+         <div class="taskbar-apps" id="taskbar-apps"></div>
+         <div class="system-tray">
+            <svg class="tray-icon" viewBox="0 0 24 24" fill="#ffff" onclick="toggleWifiPanel()">
+               <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/>
+            </svg>
+            <div class="clock" onclick="toggleStartMenu()">
+               <div id="time">12:00 PM</div>
+               <div id="date">00/00/0000</div>
+            </div>
+         </div>
+      </div>
+      <div id="start-menu">
+         <div class="start-header">
+            <div class="start-user">
+   <img src="" alt="User" class="start-user-avatar" id="start-user-avatar">
+   <div class="start-user-name" id="start-user-name">Loading...</div>
+</div>
+            <input type="text" class="start-search" placeholder="Search apps, settings, and documents">
+         </div>
+         <div class="start-content">
+            <div class="start-section">
+               <div class="start-section-title">Pinned</div>
+               <div class="start-app-grid">
+                  <div class="start-app-item" data-name="my pc" onclick="openWindow('mypc')">
+                     <svg class="start-app-icon" viewBox="0 0 24 24" fill="#0078d4">
+                        <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
+                     </svg>
+                     <div class="start-app-name">My PC</div>
+                  </div>
+                  <div class="start-app-item" data-name="mail" onclick="openWindow('email')">
+                     <svg class="start-app-icon" viewBox="0 0 24 24" fill="#0078d4">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                     </svg>
+                     <div class="start-app-name">Mail</div>
+                  </div>
+                  <div class="start-app-item" data-name="resume" onclick="openResume()">
+                     <svg class="start-app-icon" viewBox="0 0 24 24" fill="#0078d4">
+                        <path d="M9 2h6a2 2 0 0 1 2 2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2-2zm0 2v2h6V4H9zm10 4H5v12h14V8z"/>
+                     </svg>
+                     <div class="start-app-name">Resume</div>
+                  </div>
+                  <div class="start-app-item" data-name="education" onclick="openEducation()">
+                     <svg class="start-app-icon" viewBox="0 0 24 24" fill="#0078d4">
+                        <path d="M12 2L1 7l11 5 9-4.09V17h2V7L12 2z"/>
+                     </svg>
+                     <div class="start-app-name">Education</div>
+                  </div>
+                  <div class="start-app-item" data-name="favorites" onclick="openWindow('favorites')">
+                     <svg class="start-app-icon" viewBox="0 0 24 24" fill="#e91e63">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                     </svg>
+                     <div class="start-app-name">Favorites</div>
+                  </div>
+                  <div class="start-app-item" data-name="projects" onclick="openWindow('projects')">
+                     <svg class="start-app-icon" viewBox="0 0 24 24" fill="#8b5cf6">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                     </svg>
+                     <div class="start-app-name">Projects</div>
+                     </div>
+                  <div class="start-app-item" data-name="telegram" onclick="openSocial('telegram')">
+                     <svg class="start-app-icon" viewBox="0 0 24 24" fill="#0088cc">
+                        <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
+                     </svg>
+                     <div class="start-app-name">Telegram</div>
+                  </div>
+                  <div class="start-app-item" data-name="instagram" onclick="openSocial('instagram')">
+                     <svg class="start-app-icon" viewBox="0 0 24 24" fill="#0088cc">
+                        <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10zm-5 3.5A5.5 5.5 0 1 0 17.5 13 5.51 5.51 0 0 0 12 7.5zm0 9A3.5 3.5 0 1 1 15.5 13 3.5 3.5 0 0 1 12 16.5zM17.75 6a1.25 1.25 0 1 0 1.25 1.25A1.25 1.25 0 0 0 17.75 6z"/>
+                     </svg>
+                     <div class="start-app-name">Instagram</div>
+                  </div>
+                  <div class="start-app-item" data-name="github" onclick="openSocial('github')">
+                     <svg class="start-app-icon" viewBox="0 0 24 24" fill="#E4405F">
+                        <path d="M12 2
+                           C6.477 2 2 6.484 2 12.017
+                           C2 16.438 4.865 20.194 8.839 21.52
+                           C9.339 21.612 9.521 21.303 9.521 21.037
+                           C9.521 20.8 9.512 20.169 9.508 19.203
+                           C6.726 19.808 6.139 17.86 6.139 17.86
+                           C5.685 16.702 5.029 16.394 5.029 16.394
+                           C4.121 15.774 5.098 15.786 5.098 15.786
+                           C6.101 15.857 6.629 16.819 6.629 16.819
+                           C7.521 18.349 8.97 17.907 9.539 17.651
+                           C9.631 17.004 9.889 16.563 10.175 16.313
+                           C7.955 16.06 5.62 15.2 5.62 11.36
+                           C5.62 10.267 6.01 9.372 6.649 8.672
+                           C6.546 8.419 6.203 7.4 6.749 6.022
+                           C6.749 6.022 7.589 5.752 9.499 7.048
+                           C10.299 6.826 11.155 6.715 12.008 6.711
+                           C12.861 6.715 13.717 6.826 14.517 7.048
+                           C16.427 5.752 17.267 6.022 17.267 6.022
+                           C17.813 7.4 17.47 8.419 17.367 8.672
+                           C18.006 9.372 18.396 10.267 18.396 11.36
+                           C18.396 15.21 16.056 16.056 13.828 16.305
+                           C14.187 16.614 14.507 17.225 14.507 18.165
+                           C14.507 19.503 14.495 20.584 14.495 21.037
+                           C14.495 21.303 14.677 21.615 15.183 21.519
+                           C19.135 20.189 22 16.438 22 12.017
+                           C22 6.484 17.523 2 12 2 Z"/>
+                     </svg>
+                     <div class="start-app-name">Github</div>
+                  </div>
+                  <div>
+                     <div class="start-app-item" data-name="linkedin" onclick="openSocial('linkedin')">
+                        <svg class="start-app-icon" viewBox="0 0 24 24" fill="#0077B5">
+                           <path d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 17.34V10.5H5.67v6.84h2.67zM7 9.4a1.56 1.56 0 1 0 0-3.12 1.56 1.56 0 0 0 0 3.12zM18.34 17.34v-3.73c0-2-1.06-2.93-2.48-2.93a2.15 2.15 0 0 0-1.95 1.08V10.5h-2.67v6.84h2.67v-3.4c0-.9.17-1.77 1.29-1.77s1.31.86 1.31 1.83v3.34h2.83z"/>
+                        </svg>
+                        <div class="start-app-name">LinkedIn</div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div id="wifi-panel">
+         <div class="wifi-header">Network</div>
+         <div class="speed-test">
+            <div class="speed-item">
+               <span class="speed-label">Download</span>
+               <span class="speed-value" id="download-speed">-- Mbps</span>
+            </div>
+            <div class="speed-item">
+               <span class="speed-label">Upload</span>
+               <span class="speed-value" id="upload-speed">-- Mbps</span>
+            </div>
+            <div class="speed-item">
+               <span class="speed-label">Ping</span>
+               <span class="speed-value" id="ping">-- ms</span>
+            </div>
+         </div>
+      </div>
+      <div class="window" id="mypc-window" style="left: 100px; top: 80px; width: 700px; height: 500px;">
+         <div class="window-titlebar">
+            <svg class="window-icon" viewBox="0 0 24 24" fill="#0078d4">
+               <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
+            </svg>
+            <div class="window-title">My PC</div>
+            <div class="window-controls">
+               <div class="window-btn minimize" onclick="minimizeWindow('mypc')">−</div>
+               <div class="window-btn close" onclick="closeWindow('mypc')">✕</div>
+            </div>
+         </div>
+         <div class="window-content">
+            <div class="about-content">
+   <img src="" alt="Me" class="about-photo" id="about-photo">
+   <div class="about-text">
+      <h2 id="about-title">Loading...</h2>
+      <div id="about-paragraphs"></div>
+      <p><strong>Skills:</strong> <span id="about-skills"></span></p>
+      <p><strong>Age:</strong> <span id="about-age"></span></p>
+      <p><strong>Location:</strong> <span id="about-location"></span></p>
+   </div>
+</div>
+         </div>
+      </div>
+      <div class="window" id="resume-window"
+         style="left:220px; top:120px; width:900px; height:600px;">
+         <div class="window-titlebar">
+            <svg class="window-icon" viewBox="0 0 24 24" fill="#0078d4">
+               <path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/>
+            </svg>
+            <div class="window-title">Resume.pdf</div>
+            <div class="window-controls">
+               <div class="window-btn minimize" onclick="minimizeWindow('resume')">−</div>
+               <div class="window-btn close" onclick="closeWindow('resume')">✕</div>
+            </div>
+         </div>
+         <div class="window-content" style="padding:0; display:flex; flex-direction:column;">
+            <div style="
+               background:#f3f3f3;
+               border-bottom:1px solid #ddd;
+               padding:10px;
+               display:flex;
+               justify-content:flex-end;
+               gap:10px;
+               ">
+               <a id="resume-download"
+                  href="#"
+                  download
+                  style="
+                  background:#0078d4;
+                  color:#fff;
+                  padding:8px 16px;
+                  border-radius:4px;
+                  font-size:13px;
+                  font-weight:600;
+                  text-decoration:none;
+                  ">
+               ⬇ Download Resume
+               </a>
+            </div>
+            <iframe
+               id="resume-frame"
+               style="flex:1; border:none;"
+               loading="lazy">
+            </iframe>
+         </div>
+      </div>
+      <div class="window" id="education-window" style="left: 200px; top: 120px; width: 900px; height: 600px;">
+         <div class="window-titlebar">
+            <svg class="window-icon" viewBox="0 0 24 24" fill="#0078d4">
+               <path d="M12 2L1 7l11 5 9-4.09V17h2V7L12 2z"/>
+            </svg>
+            <div class="window-title">Education Records</div>
+            <div class="window-controls">
+               <div class="window-btn minimize" onclick="minimizeWindow('education')">−</div>
+               <div class="window-btn close" onclick="closeEducation()">✕</div>
+            </div>
+         </div>
+         <div class="window-content" style="padding: 0; position: relative; overflow: hidden;">
+            <div id="edu-map" style="width: 100%; height: 100%;"></div>
+            <div class="edu-overlay-win">
+               <div class="edu-title" id="edu-title">Loading...</div>
+               <div class="edu-subtitle" id="edu-subtitle"></div>
+               <div class="edu-progress" id="edu-progress"></div>
+            </div>
+         </div>
+      </div>
+      <div class="window" id="email-window" style="left: 150px; top: 100px; width: 650px; height: 550px;">
+         <div class="window-titlebar">
+            <svg class="window-icon" viewBox="0 0 24 24" fill="#0078d4">
+               <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+            <div class="window-title">Mail - New Message</div>
+            <div class="window-controls">
+               <div class="window-btn minimize" onclick="minimizeWindow('email')">−</div>
+               <div class="window-btn close" onclick="closeWindow('email')">✕</div>
+            </div>
+         </div>
+         <div class="window-content">
+            <div class="email-form">
+               <div class="form-group">
+   <label class="form-label">To:</label>
+   <input type="email" class="form-input" id="recipient-email" readonly>
+</div>
+               <div class="form-group">
+                  <label class="form-label">From:</label>
+                  <input type="email" class="form-input" id="sender-email" placeholder="your.email@example.com" required>
+               </div>
+               <div class="form-group">
+                  <label class="form-label">Subject:</label>
+                  <input type="text" class="form-input" id="email-subject" value="Hello from PORTFOLIO-X!">
+               </div>
+               <div class="form-group">
+                  <label class="form-label">Message:</label>
+                  <textarea class="form-textarea" id="email-body">Hi there! Just saying hi!</textarea>
+               </div>
+               <button class="send-btn" onclick="sendEmail()">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                     <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                  </svg>
+                  Send
+               </button>
+               <div class="email-status" id="email-status"></div>
+            </div>
+         </div>
+      </div>
+<div class="window" id="projects-window"
+   style="left:220px; top:130px; width:850px; height:600px;">
+   <div class="window-titlebar">
+      <svg class="window-icon" viewBox="0 0 24 24" fill="#8b5cf6">
+         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+      <div class="window-title">Projects</div>
+      <div class="window-controls">
+         <div class="window-btn minimize" onclick="minimizeWindow('projects')">−</div>
+         <div class="window-btn close" onclick="closeWindow('projects')">✕</div>
+      </div>
+   </div>
+   <div class="window-content">
+      <div class="projects-grid" id="projects-grid"></div>
+   </div>
+</div>
+
+<div class="window" id="projectdetail-window"
+   style="left:260px; top:140px; width:720px; height:560px;">
+   <div class="window-titlebar">
+      <svg class="window-icon" viewBox="0 0 24 24" fill="#8b5cf6">
+         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+      <div class="window-title" id="projectdetail-title">Project Details</div>
+      <div class="window-controls">
+         <div class="window-btn minimize" onclick="minimizeWindow('projectdetail')">−</div>
+         <div class="window-btn close" onclick="closeWindow('projectdetail')">✕</div>
+      </div>
+   </div>
+   <div class="window-content">
+      <img id="projectdetail-img"
+         style="width:100%; height:260px; object-fit:cover; border-radius:6px">
+      <h2 id="projectdetail-name" style="margin:16px 0 6px"></h2>
+      <p id="projectdetail-desc" style="color:#555"></p>
+      <p id="projectdetail-meta" style="color:#888;font-size:13px;margin-top:8px"></p>
+      <div style="margin-top:20px;">
+         <a href="#" target="_blank" id="projectdetail-url" 
+            style="background:#8b5cf6; color:#fff; padding:12px 28px; border-radius:6px; text-decoration:none; font-weight:600; display:inline-flex; align-items:center; gap:8px; transition:background 0.3s; cursor:pointer;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+               <path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3h-7z"/>
+            </svg>
+            Visit Project
+         </a>
+      </div>
+   </div>
+</div>
+
+      <div class="window" id="favdetail-window"
+         style="left:260px; top:140px; width:720px; height:560px;">
+         <div class="window-titlebar">
+            <svg class="window-icon" viewBox="0 0 24 24" fill="#e91e63">
+               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+                  2 5.42 4.42 3 7.5 3c1.74 0 3.41.81
+                  4.5 2.09C13.09 3.81 14.76 3 16.5 3
+                  19.58 3 22 5.42 22 8.5
+                  c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            <div class="window-title" id="favdetail-title">Details</div>
+            <div class="window-controls">
+               <div class="window-btn minimize"
+                  onclick="minimizeWindow('favdetail')">−</div>
+               <div class="window-btn close"
+                  onclick="closeWindow('favdetail')">✕</div>
+            </div>
+         </div>
+         <div class="window-content">
+            <img id="favdetail-img"
+               style="width:100%; height:260px; object-fit:cover; border-radius:6px">
+            <h2 id="favdetail-name" style="margin:16px 0 6px"></h2>
+            <p id="favdetail-desc" style="color:#555"></p>
+            <p id="favdetail-meta" style="color:#888;font-size:13px;margin-top:8px"></p>
+         </div>
+      </div>
+      <div class="window" id="favorites-window"
+         style="left:200px; top:120px; width:800px; height:600px;">
+         <div class="window-titlebar">
+            <div class="window-title">Favorites</div>
+            <div class="window-controls">
+               <div class="window-btn minimize" onclick="minimizeWindow('favorites')">−</div>
+               <div class="window-btn close" onclick="closeWindow('favorites')">✕</div>
+            </div>
+         </div>
+         <div class="window-content">
+  <div class="favorites-nav">
+    <div class="fav-tab active" onclick="switchFavTab('shows')">TV Shows</div>
+    <div class="fav-tab" onclick="switchFavTab('movies')">Movies</div>
+    <div class="fav-tab" onclick="switchFavTab('music')">Music</div>
+  </div>
+
+  <div id="fav-content-shows" class="fav-content">
+    <div class="fav-grid" id="fav-grid-shows"></div>
+  </div>
+
+  <div id="fav-content-movies" class="fav-content" style="display:none;">
+    <div class="fav-grid" id="fav-grid-movies"></div>
+  </div>
+
+  <div id="fav-content-music" class="fav-content" style="display:none;">
+    <div class="fav-grid" id="fav-grid-music"></div>
+  </div>
+</div>
+      </div>
+      <script type="module" src="js/mascot/main.js"></script>
+   </body>
+</html>
